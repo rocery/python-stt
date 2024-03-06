@@ -3,11 +3,13 @@
 # |-- qrcode.py
 # |-- data.csv
 # |-- /hasil
-# |    -- qrcode.png
+# |    -- qrcode1.png
+# |    -- qrcode2.png
 
 from segno import helpers
 import csv
 import os
+from PIL import Image, ImageDraw, ImageFont
 
 # Load data, ganti nama <data.csv> sesuai data yang ada. Gunakan file csv'
 data = "data.csv"
@@ -38,7 +40,17 @@ with open(data, "r") as fp:
             qrcode = helpers.make_mecard(name=f"{row['nama']}",
                                          url=f"{row['qrcode']}",
                                          )
+            
+            # # Konversi qrcode ke PIL
+            # qr_image = qrcode.to_pil()
+            # draw = ImageDraw.Draw(qr_image)
+            # font = ImageFont.load_default()
+            # text = "QRCODE"
+            # text_width, text_height = draw.textsize(text, font)
+            # text_position = ((qr_image.width - text_width) // 2, qr_image.height + 10)
+            # draw.text(text_position, text, font=font, fill='black')
             # to_artistic to add pic, .save use default settings
+
             qrcode.save(
                 # background = "back.jpg",
 				# target = 
@@ -47,8 +59,11 @@ with open(data, "r") as fp:
 				border = borderSize,
                 light = (255, 255, 255),
 			)
+
             print(f"{line_count}. Pembuatan QrCode data pegawai: {row['nama']} berhasil!")
+
         line_count += 1
+        
     print(f"Data terbaca {line_count - 1}")
     print(f"Data diproses {line_count - 1 - line_error}")
     print(f"Data error {line_error}")
