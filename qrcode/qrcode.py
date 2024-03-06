@@ -60,6 +60,13 @@ with open(data, "r") as fp:
                 light = (255, 255, 255),
 			)
 
+            img = Image.open(f"{forder_save}/{row['nama']}.png")
+            draw = ImageDraw.Draw(img)
+            texts = row['nama']
+            draw.text((230, 230), "TEST", fill="black")
+            img.save(f"{forder_save}/output/{row['nama']}_text.png")
+            # img.show()
+
             print(f"{line_count}. Pembuatan QrCode data pegawai: {row['nama']} berhasil!")
 
         line_count += 1
